@@ -1,4 +1,4 @@
-#!/usr/bin/perl -w
+#!/usr/bin/env perl -w
 # 
 # Copyright 2012 Torge Gipp. torge<at>tg432<dot>de
 # This program is free software: you can redistribute it and/or modify it 
