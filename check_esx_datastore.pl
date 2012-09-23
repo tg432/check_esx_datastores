@@ -1,6 +1,6 @@
 #!/usr/bin/env perl -w
 # 
-# Copyright 2012 Torge Gipp. torge<at>tg432<dot>de
+# Copyright 2012 Torge Gipp. 
 # This program is free software: you can redistribute it and/or modify it 
 # under the terms of the GNU General Public License as published by the Free Software Foundation.
 
@@ -19,17 +19,22 @@ my @warnings;
 my @criticals;
 # Don't verify SSL-Cert
 $ENV{PERL_LWP_SSL_VERIFY_HOSTNAME} = 0;
+
 my $np = Nagios::Plugin->new(
 	shortname => "CHECK_ESX_DATASTORES"
 );
 
-$np = Nagios::Plugin->new(  
-     usage => "Usage: %s  -H <host> -u <username> -p <passord>"
-       . " -c -w ",
-   );
+#$np = Nagios::Plugin->new(  
+#     usage => "Usage: %s  -H <host> -u <username> -p <passord>"
+#       . " -c <critical>> -w <warning>",
+#   );
    
 # Get Commandline-Options
 GetOptions ('H=s' => \$hostname, 'w=i' => \$warning, 'c=i' => \$critical, 'u=s' => \$username, 'p=s' => \$password) or  $np->nagios_exit; 
+
+for my $var ($hostname, $warning, $critical, $username, $password) {
+    $np->nagios_die("Not properly initialized\n") unless defined($var) and length $var;
+}
 
 # Environment-Vars
 $ENV{'VI_SERVER'} = $hostname; 
