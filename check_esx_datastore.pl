@@ -30,9 +30,9 @@ my $np = Nagios::Plugin->new(
 #   );
    
 # Get Commandline-Options
-GetOptions ('H=s' => \$hostname, 'w=i' => \$warning, 'c=i' => \$critical, 'u=s' => \$username, 'p=s' => \$password) or  $np->nagios_exit; 
+GetOptions ('H=s' => \$hostname, 'w=i' => \$warning, 'c=i' => \$critical, 'u=s' => \$username, 'p=s' => \$password); 
 
-for my $var ($hostname, $warning, $critical, $username, $password) {
+for my $var ($hostname, $warning, $critical, $username, $password) { # Die if required Variables are not defined.
     $np->nagios_die("Not properly initialized\n") unless defined($var) and length $var;
 }
 
@@ -109,3 +109,4 @@ if ($ecode == 1){
 	$np->nagios_exit(UNKNOWN, "Status UNBEKANNT");
 }
 exit $ecode
+
