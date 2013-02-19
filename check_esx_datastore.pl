@@ -100,13 +100,15 @@ if ($count_crit > 0){
 	$ecode = 2;
 }
 if ($ecode == 1){
-	$np->nagios_exit(WARNING, "Speichernutzung auf Datastore > 80%");
+        my $message = "Space used on Datastore > ". $warning . "%";
+        $np->nagios_exit(WARNING, $message);
 } elsif ($ecode == 2){
-	$np->nagios_exit(CRITICAL, "Speichernutzung auf Datastore > 90%");
+        my $message = "Space used on Datastore > ". $critical . "%";
+        $np->nagios_exit(CRITICAL, $message);
 } elsif ($ecode == 0){
-	$np->nagios_exit(OK, "Ausreichend Speicherplatz vorhanden");
+        $np->nagios_exit(OK, "Sufficient Space Available");
 }else{
-	$np->nagios_exit(UNKNOWN, "Status UNBEKANNT");
+        $np->nagios_exit(UNKNOWN, "State UNKNOWN");
 }
 exit $ecode
 
